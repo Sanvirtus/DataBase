@@ -1,0 +1,121 @@
+﻿<Window x:Class="Books.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:books="clr-namespace:Books"
+        d:DataContext="{d:DesignInstance books:MainWindowModel}"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="600" MinWidth="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Margin="5" Command="{Binding RefreshCommand}" Background="Cyan"
+                    ToolTip="Обновить список книг">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <fa:FontAwesome Icon="Refresh" Spin="True" SpinDuration="1" FontSize="20" Margin="10" />
+                    <TextBlock Text="Обновить" Margin="0,0,10,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            <Button Margin="5" Command="{Binding AddBookCommand}" Background="PaleGreen"
+                    ToolTip="Добавить новую книгу">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <fa:FontAwesome Icon="Plus" FontSize="20" Margin="10" />
+                    <TextBlock Text="Добавить книгу" Margin="0,0,10,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            <Button Margin="5" Command="{Binding EditBookCommand}"
+                    CommandParameter="{Binding SelectedBook}" Background="Aquamarine"
+                    ToolTip="Редактировать выбранную книгу">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <fa:FontAwesome Icon="Pencil" FontSize="20" Margin="10" />
+                    <TextBlock Text="Редактировать книгу" Margin="0,0,10,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            <Button Margin="5" Command="{Binding DeleteBookCommand}"
+                    CommandParameter="{Binding SelectedBook}" Background="Pink"
+                    ToolTip="Удалить выбранную книгу">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <fa:FontAwesome Icon="Minus" FontSize="20" Margin="10" />
+                    <TextBlock Text="Удалить книгу" Margin="0,0,10,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" Grid.Column="0" IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedBook, UpdateSourceTrigger=PropertyChanged}"
+                  SelectionMode="Single">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название книги"
+                                    Width="100"
+                                    Binding="{Binding BookName, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Автор"
+                                    Width="100"
+                                    Binding="{Binding Author, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Кол-во страниц"
+                                    Binding="{Binding PageCount, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Год издания"
+                                    Binding="{Binding PublishingYear, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Номер издания"
+                                    Binding="{Binding EditionNumber, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Номер книги в печати"
+                                    Binding="{Binding BookPrintNumber, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Тип переплета"
+                                    Binding="{Binding BindingType, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Номер партии"
+                                    Binding="{Binding PartyNumber, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Кол-во книг в партии"
+                                    Binding="{Binding BooksCountInParty, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Название печатной фабрики"
+                                    Width="200"
+                                    Binding="{Binding PrintingFactoryName, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Margin="5" Command="{Binding PreviousPageCommand}" Background="Beige"
+                    ToolTip="Переключиться на предыдущую страницу">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <fa:FontAwesome Icon="ArrowLeft" FontSize="20" Margin="10" />
+                    <TextBlock Text="Предыдущая страница" Margin="0,0,10,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            <Button Margin="5" Command="{Binding NextPageCommand}" Background="Beige"
+                    ToolTip="Переключиться на следующую страницу">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <fa:FontAwesome Icon="ArrowRight" FontSize="20" Margin="10" />
+                    <TextBlock Text="Следующая страница" Margin="0,0,10,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

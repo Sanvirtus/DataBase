@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+    <PropertyGroup>
+        <OutputType>winexe</OutputType>
+        <TargetFramework>net472</TargetFramework>
+        <SkipValidatePackageReferences>true</SkipValidatePackageReferences>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <DefaultLanguage>en-US</DefaultLanguage>
+        <RootNamespace>Books</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <UseWpf>true</UseWpf>
+        <OutputType>WinExe</OutputType>
+        <StartupObject />
+        <ApplicationIcon>books.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="PresentationFramework" />
+        <Reference Include="System.Configuration" />
+        <Reference Include="System.ServiceModel" />
+        <Reference Include="System.Windows.Controls.Ribbon" />
+        <Reference Include="WindowsBase" />
+        <Reference Include="PresentationCore" />
+        <Reference Include="System.Xaml" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="books.ico" />
+    </ItemGroup>
+    <ItemGroup>
+        <!-- App.xaml -->
+        <ApplicationDefinition Include="App.xaml" SubType="Designer" Generator="MSBuild:XamlIntelliSenseFileGenerator" />
+        <!-- XAML elements -->
+        <Page Include="**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" Exclude="App.xaml" />
+        <Compile Update="**\*.xaml.cs" SubType="Designer" DependentUpon="%(Filename)" />
+        <Compile Update="$(IntermediateOutputPath)**\*.g.cs" Visible="false" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="Services\SQLite.db" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    </ItemGroup>
+</Project>
